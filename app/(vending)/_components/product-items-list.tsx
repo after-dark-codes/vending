@@ -1,6 +1,5 @@
-import React from "react";
 import ProductItem from "./product-item";
-import { Product } from "@/db/seed";
+import { Product } from "@/lib/types";
 
 interface ProductItemListProps {
   products: Product[];
@@ -12,7 +11,7 @@ const ProductItemsList = ({ products }: ProductItemListProps) => {
         <ProductItem
           key={product.code}
           code={product.code}
-          ammount={product.ammount}
+          amount={product.amount}
           price={product.price}
           productName={product.productName}
         />

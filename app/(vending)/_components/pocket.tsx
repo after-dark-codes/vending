@@ -1,26 +1,27 @@
 "use client";
 
-import { useState } from "react";
+import { useContext } from "react";
 import Coin from "./coin";
 import { Separator } from "@/components/ui/separator";
 import { Euro } from "lucide-react";
-import { pocketChange } from "@/lib/const";
+import { PocketContext } from "@/context/pocket-ctx";
 
 const Pocket = () => {
-  const total = pocketChange.reduce(
-    (total, coin) => total + coin.ammount * coin.value,
-    0
-  );
-  const [pocketTotal, setPocketTotal] = useState<number>(total);
+  const { pocketCredit, _, pocketCoins } = useContext(PocketContext);
 
   return (
-    <div className="flex flex-col p-4 border-slate-400 border-2 rounded-lg">
-      {pocketChange.map((coin) => (
-        <Coin key={coin.value} value={coin.value} ammount={coin.ammount} />
-      ))}
+    <div className="flex flex-col p-4 border-slate-400 border-2 rounded-lg justify-between">
+      <div className="flex flex-col justify-start gap-1">
+        {pocketCoins.map(
+          (coin: { amount: number; value: number }) =>
+            !!coin.amount && (
+              <Coin key={coin.value} value={coin.value} amount={coin.amount} />
+            )
+        )}
+      </div>
       <Separator className="my-2" />
-      <p className="text-sm">
-        Total: {pocketTotal}
+      <p className="text-sm ">
+        Total: {pocketCredit.toFixed(2)}
         <Euro className="h-3 w-3 inline-block" />
       </p>
     </div>

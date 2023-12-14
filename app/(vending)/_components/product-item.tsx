@@ -1,12 +1,12 @@
 "use client";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-import { Product } from "@/db/seed";
-import { cn } from "@/lib/utils";
-import { ArrowBigRight, Circle, EuroIcon } from "lucide-react";
 
-const ProductItem = ({ productName, code, ammount, price }: Product) => {
+import { Badge } from "@/components/ui/badge";
+import { Label } from "@/components/ui/label";
+import { Product } from "@/lib/types";
+import { cn } from "@/lib/utils";
+import { Circle, EuroIcon } from "lucide-react";
+
+const ProductItem = ({ productName, code, amount, price }: Product) => {
   return (
     <div className="w-[200px] flex flex-col border-2 rounded-lg border-slate-600">
       <div className="flex flex-row justify-between">
@@ -14,7 +14,7 @@ const ProductItem = ({ productName, code, ammount, price }: Product) => {
         <Circle
           className={cn(
             "w-4 h-4 border-0 mr-1 pt-1",
-            !!ammount ? "fill-lime-500" : "fill-rose-500"
+            !!amount ? "fill-lime-500" : "fill-rose-500"
           )}
         />
       </div>
