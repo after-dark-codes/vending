@@ -3,19 +3,19 @@ import { createContext } from "react";
 
 export const vendingCoins: Coin[] = [
   {
-    value: 0.05,
+    value: 5,
     amount: 10,
   },
   {
-    value: 0.1,
+    value: 10,
     amount: 10,
   },
   {
-    value: 0.2,
+    value: 20,
     amount: 10,
   },
   {
-    value: 0.5,
+    value: 50,
     amount: 10,
   },
 ];

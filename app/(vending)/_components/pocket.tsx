@@ -7,7 +7,7 @@ import { Euro } from "lucide-react";
 import { PocketContext } from "@/context/pocket-ctx";
 
 const Pocket = () => {
-  const { pocketCredit, _, pocketCoins } = useContext(PocketContext);
+  const { pocketCredit, pocketCoins } = useContext(PocketContext);
 
   return (
     <div className="flex flex-col p-4 border-slate-400 border-2 rounded-lg justify-between">
@@ -21,7 +21,7 @@ const Pocket = () => {
       </div>
       <Separator className="my-2" />
       <p className="text-sm ">
-        Total: {pocketCredit.toFixed(2)}
+        Total: {(pocketCredit / 100).toFixed(2)}
         <Euro className="h-3 w-3 inline-block" />
       </p>
     </div>

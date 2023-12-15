@@ -3,19 +3,19 @@ import { createContext } from "react";
 
 export const userCoins: Coin[] = [
   {
-    value: 0.05,
+    value: 5,
     amount: 4,
   },
   {
-    value: 0.1,
+    value: 10,
     amount: 3,
   },
   {
-    value: 0.2,
+    value: 20,
     amount: 5,
   },
   {
-    value: 0.5,
+    value: 50,
     amount: 2,
   },
 ];
