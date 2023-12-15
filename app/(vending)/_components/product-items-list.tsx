@@ -1,13 +1,14 @@
+import { useContext } from "react";
 import ProductItem from "./product-item";
 import { Product } from "@/lib/types";
+import { ProductsContext } from "@/context/product-ctx";
 
-interface ProductItemListProps {
-  products: Product[];
-}
-const ProductItemsList = ({ products }: ProductItemListProps) => {
+const ProductItemsList = () => {
+  const { products } = useContext(ProductsContext);
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 border-slate-400 border-2 rounded-lg">
-      {products.map((product) => (
+      {products.map((product: Product) => (
         <ProductItem
           key={product.code}
           code={product.code}

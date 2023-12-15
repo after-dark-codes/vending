@@ -4,9 +4,9 @@ import ProductItemsList from "./product-items-list";
 import VendingIo from "./vending-io";
 import { useState } from "react";
 import Pocket from "./pocket";
-import { Coin } from "@/lib/types";
+import { Coin, Product } from "@/lib/types";
 import { PocketContext, change, userCoins } from "@/context/pocket-ctx";
-import { ProductsContext, products } from "@/context/product-ctx";
+import { ProductsContext, vendorProducts } from "@/context/product-ctx";
 import { VendingContext, vendingCoins } from "@/context/vending-ctx";
 
 const VendingMachine = () => {
@@ -14,9 +14,10 @@ const VendingMachine = () => {
   const [pocketCoins, setPocketCoins] = useState<Coin[]>(userCoins);
   const [vendingCredit, setVendingCredit] = useState<number>(0);
   const [vendorCoins, setVendorCoins] = useState<Coin[]>(vendingCoins);
+  const [products, setProducts] = useState<Product[]>(vendorProducts);
 
   const handlePocketCreditChange = (valueChange: number) => {
-    setPocketCredit(Number((pocketCredit + valueChange).toFixed(2)));
+    setPocketCredit(pocketCredit + valueChange);
   };
 
   const handlePocketCoinChange = (value: number) => {
@@ -27,7 +28,7 @@ const VendingMachine = () => {
   };
 
   const handleVendingCreditChange = (valueChange: number) => {
-    setVendingCredit(Number((vendingCredit + valueChange).toFixed(2)));
+    setVendingCredit(vendingCredit + valueChange);
   };
 
   const handleVendorCoinReturn = (value: number) => {
@@ -67,9 +68,21 @@ const VendingMachine = () => {
     setVendorCoins(updatedCoins);
   };
 
+  const handleProductsChange = (code: number) => {
+    const updatedProducts = products.map((product: Product) =>
+      product.code === code ? { ...product, amount: --product.amount } : product
+    );
+    setProducts(updatedProducts);
+  };
+
   return (
     <div className="flex flex-row gap-4 border-5">
-      <ProductsContext.Provider value={products}>
+      <ProductsContext.Provider
+        value={{
+          products,
+          handleProductsChange,
+        }}
+      >
         <VendingContext.Provider
           value={{
             vendingCredit,
@@ -88,7 +101,7 @@ const VendingMachine = () => {
             }}
           >
             <>
-              <ProductItemsList products={products} />
+              <ProductItemsList />
               <VendingIo />
               <Pocket />
             </>

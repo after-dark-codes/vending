@@ -21,7 +21,7 @@ const ProductItem = ({ productName, code, amount, price }: Product) => {
       <div className="flex flex-row justify-between items-center">
         <Label className="text-sm px-2 font-normal text-zinc-500">price</Label>
         <div className="flex items-center px-2">
-          {price}
+          {(price / 100).toFixed(2)}
           <EuroIcon className="w-4 h-4 text-zinc-500" />
         </div>
       </div>
