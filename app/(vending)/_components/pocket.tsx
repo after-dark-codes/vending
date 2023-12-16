@@ -10,7 +10,7 @@ const Pocket = () => {
   const { pocketCredit, pocketCoins } = useContext(PocketContext);
 
   return (
-    <div className="flex flex-col p-4 border-slate-400 border-2 rounded-lg justify-between">
+    <div className="mt-4 md:mt-0 flex flex-col p-4 items-center border-slate-400 border-2 rounded-lg justify-between">
       <div className="flex flex-col justify-start gap-1">
         {pocketCoins.map(
           (coin: { amount: number; value: number }) =>

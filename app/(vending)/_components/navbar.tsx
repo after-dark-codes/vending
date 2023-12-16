@@ -1,6 +1,7 @@
 import Logo from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import Sidebar from "./sidebar";
 
 const Navbar = () => {
   return (
@@ -12,6 +13,7 @@ const Navbar = () => {
             <Link href="/sign-in">Login</Link>
           </Button>
         </div>
+        <Sidebar />
       </div>
     </div>
   );

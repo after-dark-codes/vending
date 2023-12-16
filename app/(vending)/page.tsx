@@ -4,8 +4,6 @@ import localFont from "next/font/local";
 import { Poppins } from "next/font/google";
 import { cn } from "@/lib/utils";
 import VendingMachine from "./_components/vending-machine";
-import { createContext } from "react";
-import { Product } from "@/lib/types";
 
 const headingFont = localFont({
   src: "../../public/fonts/font.woff2",
