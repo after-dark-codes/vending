@@ -7,6 +7,7 @@ import { useState } from "react";
 import { Coin, Product } from "@/lib/types";
 import { VendingContext, vendingCoins } from "@/context/vending-ctx";
 import { ProductsContext, vendorProducts } from "@/context/product-ctx";
+import { MessageContext, defaultMessage } from "@/context/message-ctx";
 
 export default function VendingLayout({
   children,
@@ -18,6 +19,7 @@ export default function VendingLayout({
   const [vendingCredit, setVendingCredit] = useState<number>(0);
   const [vendorCoins, setVendorCoins] = useState<Coin[]>(vendingCoins);
   const [products, setProducts] = useState<Product[]>(vendorProducts);
+  const [message, setMessage] = useState<string>(defaultMessage);
 
   const handlePocketCreditChange = (valueChange: number) => {
     setPocketCredit(pocketCredit + valueChange);
@@ -77,37 +79,44 @@ export default function VendingLayout({
     );
     setProducts(updatedProducts);
   };
+
+  const handleMessageChange = (newMsg: string) => {
+    setMessage(newMsg);
+  };
+
   return (
     <div className="h-full bg-slate-100">
-      <ProductsContext.Provider
-        value={{
-          products,
-          handleProductsChange,
-        }}
-      >
-        <VendingContext.Provider
+      <MessageContext.Provider value={{ message, handleMessageChange }}>
+        <ProductsContext.Provider
           value={{
-            vendingCredit,
-            handleVendingCreditChange,
-            vendorCoins,
-            handleVendorCoinInsert,
-            handleVendorCoinReturn,
+            products,
+            handleProductsChange,
           }}
         >
-          <PocketContext.Provider
+          <VendingContext.Provider
             value={{
-              pocketCredit,
-              handlePocketCreditChange,
-              pocketCoins,
-              handlePocketCoinChange,
+              vendingCredit,
+              handleVendingCreditChange,
+              vendorCoins,
+              handleVendorCoinInsert,
+              handleVendorCoinReturn,
             }}
           >
-            <Navbar />
-            <main className="pt-40 pb-20 bg-slate-100">{children}</main>
-            <Footer />
-          </PocketContext.Provider>
-        </VendingContext.Provider>
-      </ProductsContext.Provider>
+            <PocketContext.Provider
+              value={{
+                pocketCredit,
+                handlePocketCreditChange,
+                pocketCoins,
+                handlePocketCoinChange,
+              }}
+            >
+              <Navbar />
+              <main className="pt-40 pb-20 bg-slate-100">{children}</main>
+              <Footer />
+            </PocketContext.Provider>
+          </VendingContext.Provider>
+        </ProductsContext.Provider>
+      </MessageContext.Provider>
     </div>
   );
 }

@@ -7,12 +7,15 @@ import CoinsIo from "./coins-io";
 import { ProductsContext } from "@/context/product-ctx";
 import { VendingContext } from "@/context/vending-ctx";
 import { Product } from "@/lib/types";
+import { MessageContext, defaultMessage } from "@/context/message-ctx";
 
 const VendingIo = () => {
   const [enteredItem, setEnteredItem] = useState<number | null>(null);
   const { products, handleProductsChange } = useContext(ProductsContext);
   const { vendingCredit, handleVendorCoinReturn, handleVendingCreditChange } =
     useContext(VendingContext);
+
+  const { handleMessageChange } = useContext(MessageContext);
 
   const handleKeypadInput = (key: number) => {
     setEnteredItem(key);
@@ -21,21 +24,18 @@ const VendingIo = () => {
   const handleOrder = () => {
     const product = products.filter((p: Product) => p.code === enteredItem)[0];
 
-    console.log("before", products);
     const change: number = vendingCredit - product.price;
-    console.log("Change", change);
     if (product.amount <= 0) {
-      console.log("Product not available");
+      handleMessageChange("Product not available");
     } else if (change >= 0) {
       handleProductsChange(enteredItem);
       handleVendorCoinReturn(change);
       handleVendingCreditChange(vendingCredit * -1);
       setEnteredItem(null);
+      handleMessageChange("Take product");
     } else {
-      console.log("Insuficient credits");
+      handleMessageChange("Insuficient credits");
     }
-
-    console.log("After", products);
   };
 
   return (
